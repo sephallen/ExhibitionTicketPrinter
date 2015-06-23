@@ -55,3 +55,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Photos
+photo.jpg
+photoinv.jpg
