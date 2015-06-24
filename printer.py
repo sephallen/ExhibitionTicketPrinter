@@ -5,20 +5,21 @@ from escpos import *
 import pygame
 import pygame.camera
 from pygame.locals import *
-import time
+import os
 
 ticketNumber = 1
 
-while 1:
-    response = raw_input("Type your name and press ENTER for your ticket: ")
+def printingProcess():
+    global ticketNumber
 
     pygame.init()
     pygame.camera.init()
-    cam = pygame.camera.Camera("/dev/video0",(480,640))
+    cam = pygame.camera.Camera("/dev/video1",(480,640))
     cam.start()
+    # To fix image always being one behind run get_image twice
+    image = cam.get_image()
     image = cam.get_image()
     pygame.image.save(image,'photo.jpg')
-    time.sleep(2)
     cam.stop()
 
     screen = aalib.AsciiScreen(width=42, height=10)
@@ -31,7 +32,7 @@ while 1:
 
     screen.put_image((0, 0), image)
     asciiimage = screen.render()
-    print asciiimage
+    # print asciiimage
 
     """ (POS-58 Thermal Printer) """
     Epson = printer.Usb(0x0416,0x5011,4,0x81,0x02)
@@ -46,7 +47,7 @@ while 1:
     Epson.text("\n")
     Epson.text("Fare: ALL ACCESS \x9cFREE\n")
     Epson.text("Valid from: 17th - 18th July\n")
-    Epson.text("Location: Kimmeridge House KG01\n")
+    Epson.text("Location: Christchurch Annex CAG03 - CAG06\n")
     Epson.text("\n")
     Epson.text(asciiimage)
     Epson.text("\n")
@@ -61,3 +62,7 @@ while 1:
     ticketNumber += 1
     # Cut paper
     Epson.cut()
+
+while True:
+    response = raw_input("Type your name and press ENTER for your ticket: ")
+    printingProcess()
