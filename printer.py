@@ -5,6 +5,7 @@ from escpos import *
 import pygame
 import pygame.camera
 from pygame.locals import *
+import time
 
 ticketNumber = 1
 
@@ -13,10 +14,11 @@ while 1:
 
     pygame.init()
     pygame.camera.init()
-    cam = pygame.camera.Camera("/dev/video1",(640,480))
+    cam = pygame.camera.Camera("/dev/video0",(480,640))
     cam.start()
     image = cam.get_image()
     pygame.image.save(image,'photo.jpg')
+    time.sleep(2)
     cam.stop()
 
     screen = aalib.AsciiScreen(width=42, height=10)
@@ -49,7 +51,8 @@ while 1:
     Epson.text(asciiimage)
     Epson.text("\n")
     Epson.text("\n")
-    Epson.text(response)
+    if response:
+        Epson.text(response)
     Epson.text("\n")
     Epson.text("\n")
     Epson.text("http://digitalunderground.co\n")
