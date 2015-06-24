@@ -7,7 +7,12 @@ import pygame.camera
 from pygame.locals import *
 import os
 
-ticketNumber = 1
+ticketNumberFile = open('ticketnumber.txt')
+if os.stat("ticketnumber.txt").st_size == 0:
+    ticketNumber = 1
+else:
+    ticketNumber = int(ticketNumberFile.read())
+ticketNumberFile.close()
 
 def printingProcess():
     global ticketNumber
@@ -60,6 +65,9 @@ def printingProcess():
     Epson.text("Ticket Number: ")
     Epson.text(str(ticketNumber))
     ticketNumber += 1
+    ticketNumberFileWrite = open('ticketnumber.txt', 'w+')
+    ticketNumberFileWrite.write(str(ticketNumber))
+    ticketNumberFileWrite.close()
     # Cut paper
     Epson.cut()
 
