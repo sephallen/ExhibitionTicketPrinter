@@ -19,7 +19,7 @@ def printingProcess():
 
     pygame.init()
     pygame.camera.init()
-    cam = pygame.camera.Camera("/dev/video1",(480,640))
+    cam = pygame.camera.Camera("/dev/video1",(640,480))
     cam.start()
     # To fix image always being one behind run get_image twice
     image = cam.get_image()
@@ -52,7 +52,7 @@ def printingProcess():
     Epson.text("\n")
     Epson.text("Fare: ALL ACCESS \x9cFREE\n")
     Epson.text("Valid from: 17th - 18th July\n")
-    Epson.text("Location: Christchurch Annex CAG03 - CAG06\n")
+    Epson.text("Location: Student Hall TG01\n")
     Epson.text("\n")
     Epson.text(asciiimage)
     Epson.text("\n")
